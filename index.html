@@ -11,35 +11,144 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <style>
-        :root { --primary-blue: #004a99; --soft-bg: #f8f9fa; }
-        body { background-color: var(--soft-bg); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        .navbar { background: white; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
-        .logo-top { height: 50px; }
-        .notification-container { position: relative; cursor: pointer; }
-        .notif-icon { width: 35px; }
-        .badge-notif { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 11px; border: 2px solid white; }
-        .cover-wrapper { width: 100%; background: #fff; padding: 20px 0; text-align: center; }
-        .main-cover { max-width: 90%; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); max-height: 300px; object-fit: cover; }
-        .service-card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: 0.4s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; cursor: pointer; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .card-icon { width: 100px; height: 100px; border-radius: 15px; margin-bottom: 15px; }
-        .card-title { color: #333; font-weight: bold; }
-        .bottom-img-container { text-align: center; margin: 40px 0; }
-        .bottom-img { max-width: 150px; opacity: 0.8; }
-        .chat-btn { position: fixed; bottom: 30px; right: 30px; background: white; border-radius: 50px; padding: 10px 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px; z-index: 999; cursor: pointer; border: 1px solid #eee; }
-        .live-clock { color: #555; font-size: 0.9rem; }
-        @media (max-width: 768px) { .main-cover { max-height: 150px; } .card-icon { width: 80px; height: 80px; } }
+        :root {
+            --primary-blue: #004a99;
+            --soft-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--soft-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar responsive */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 10px 5%;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-top { height: 45px; width: auto; }
+        
+        .notification-container {
+            position: relative;
+            cursor: pointer;
+        }
+        .notif-icon { width: 32px; height: auto; transition: 0.3s; }
+        .notif-icon:hover { transform: scale(1.1); }
+        .badge-notif {
+            position: absolute; top: -5px; right: -5px;
+            background: #ff0000; color: white; border-radius: 50%;
+            padding: 2px 6px; font-size: 10px; font-weight: bold;
+            border: 2px solid white;
+        }
+
+        /* Cover Section */
+        .cover-wrapper {
+            width: 100%;
+            background: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .main-cover {
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            height: auto;
+            max-height: 350px;
+            object-fit: cover;
+        }
+
+        /* Cards Layout - Multi-device support */
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-blue);
+        }
+        .card-icon {
+            width: 80px; height: 80px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            color: #333; font-weight: bold; font-size: 1.15rem;
+            margin: 0;
+        }
+
+        /* Clock styles */
+        .live-clock { color: #555; font-size: 0.85rem; font-weight: 500; }
+
+        /* Floating Chat Button */
+        .chat-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 999;
+            cursor: pointer;
+            border: 1px solid #eee;
+            text-decoration: none !important;
+            transition: 0.3s;
+        }
+        .chat-btn:hover { transform: scale(1.05); }
+        .chat-icon { width: 25px; height: 25px; }
+        .chat-text { font-weight: bold; color: #333; font-size: 0.9rem; }
+
+        .bottom-img {
+            max-width: 120px;
+            margin: 40px auto;
+            display: block;
+            opacity: 0.7;
+        }
+
+        /* Tablet & Mobile Adjustments */
+        @media (max-width: 768px) {
+            .main-cover { max-height: 180px; width: 95%; }
+            .card-icon { width: 65px; height: 65px; }
+            .card-title { font-size: 1rem; }
+            .navbar { padding: 10px 15px; }
+            .chat-btn { bottom: 20px; right: 20px; padding: 8px 15px; }
+            .chat-text { display: none; } /* Hide text on mobile for cleaner look */
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar d-flex justify-content-between align-items-center">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_bxPxMDdkYISQbRLcmYnEpiKs0-44MqXMyg&s" class="logo-top" alt="Logo">
+    
     <div class="text-center d-none d-md-block">
         <div id="date" class="live-clock"></div>
-        <div id="clock" class="live-clock" style="font-size: 1.1rem; color: var(--primary-blue);"></div>
+        <div id="clock" class="live-clock" style="font-size: 1rem; color: var(--primary-blue);"></div>
     </div>
+
     <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbyTfw6iYwwGDhob_FSj3m0z63bDuryE3305UywRSFBHGcvERfHt7rTqwIhzyMjoEIkh/exec?page=user')" class="notification-container">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBei2zFVJEcFsQfBM7soZQ0qyxaz8CS6Jg7w&s" class="notif-icon">
         <span class="badge-notif">3</span>
@@ -47,24 +156,26 @@
 </nav>
 
 <div class="cover-wrapper animate__animated animate__fadeIn">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Dmg13F1SFOoWqVK03-4MIAdHwr9pKlPKIg&s" class="main-cover" alt="Cover">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Dmg13F1SFOoWqVK03-4MIAdHwr9pKlPKIg&s" class="main-cover" alt="Cover Image">
 </div>
 
-<div class="container mt-4">
+<div class="container my-5">
     <div class="row g-4 justify-content-center">
-        <div class="col-lg-4 col-md-6">
+        <div class="col-6 col-md-4 col-lg-3">
             <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbzuoX7cEMNZKzDBEW8-kRVVisw7T-CXJ4XOhox8lTkJhDNFEy0R57nBU-3GQ-2OIomc/exec')" class="service-card animate__animated animate__fadeInUp">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3q_UbUQ1Iz9GCz6HFri1OwtZRB32_siIp4w&s" class="card-icon">
                 <div class="card-title">Edrak Database</div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6">
+
+        <div class="col-6 col-md-4 col-lg-3">
             <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbz3jWdO1cg-zT0ck6WofvDK36vecZRAOua9fOWVIMI5bjIw-cFqFxZ-0pG0FgoMNUUJ/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
                 <img src="https://pbs.twimg.com/media/ChYtizZWMAEyr_q.png" class="card-icon">
                 <div class="card-title">Payroll Report</div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6">
+
+        <div class="col-6 col-md-4 col-lg-3">
             <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbweZJzf-ROZKAkb1SJWh_nYxnReDUcUn-Xls4Y2m0fRQhgwmMG25wFpTTf66uLkLN4/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/0649b814742483.56288537c340d.jpg" class="card-icon">
                 <div class="card-title">Vacation & Excuse</div>
@@ -73,9 +184,7 @@
     </div>
 </div>
 
-<div class="bottom-img-container">
-    <img src="https://www.wipo.int/dpp-files/54294/54294.jpg" class="bottom-img">
-</div>
+<img src="https://www.wipo.int/dpp-files/54294/54294.jpg" class="bottom-img" alt="WIPO Logo">
 
 <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbwlxTldi-h9GyNuQY1d2ev45XxTniaJgq_7aM9CuAP3g_qtUMlhppq98E44tpZOGMU/exec')" class="chat-btn animate__animated animate__bounceIn">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhMvLh01O3mcG23jswZT0f_Je_oNUyWZoYA&s" class="chat-icon">
@@ -83,29 +192,41 @@
 </div>
 
 <script>
-    // الحل الأكيد لفتح اللينكات بشكل خارجي لتجنب خطأ Google Drive
+    /**
+     * وظيفة فتح الروابط بشكل آمن لحل مشكلة Google Script
+     * تضيف التوجيه للمستخدم الافتراضي لفتح الصفحة بنجاح
+     */
     function safeOpen(url) {
-        const win = window.open(url, '_blank');
-        if (win) {
-            win.focus();
-        } else {
-            // لو المتصفح منع الـ Pop-up
-            location.href = url;
+        // إضافة معلمة authuser=0 لضمان التعرف على حساب جوجل
+        const separator = url.includes('?') ? '&' : '?';
+        const finalUrl = url + separator + 'authuser=0';
+        
+        // محاولة الفتح في نافذة جديدة تماماً (تفتح المتصفح الافتراضي للموبايل)
+        const win = window.open(finalUrl, '_blank', 'noopener,noreferrer');
+        
+        // إذا فشل الفتح التلقائي (بسبب حظر النوافذ المنبثقة)
+        if (!win || win.closed || typeof win.closed == 'undefined') {
+            window.location.href = finalUrl;
         }
     }
 
+    // تحديث الوقت والتاريخ بشكل مستمر
     function updateTime() {
         const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('date').innerText = now.toLocaleDateString('ar-EG', options);
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('date').innerText = now.toLocaleDateString('ar-EG', dateOptions);
         document.getElementById('clock').innerText = now.toLocaleTimeString('ar-EG');
     }
     setInterval(updateTime, 1000);
     updateTime();
 
+    // تسجيل Service Worker للعمل كـ PWA
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+        });
     }
 </script>
+
 </body>
 </html>
