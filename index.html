@@ -64,7 +64,7 @@
             object-fit: cover;
         }
 
-        /* Cards Layout - Multi-device support */
+        /* Cards Layout */
         .service-card {
             background: white;
             border-radius: 20px;
@@ -96,10 +96,8 @@
             margin: 0;
         }
 
-        /* Clock styles */
         .live-clock { color: #555; font-size: 0.85rem; font-weight: 500; }
 
-        /* Floating Chat Button */
         .chat-btn {
             position: fixed;
             bottom: 25px;
@@ -128,14 +126,30 @@
             opacity: 0.7;
         }
 
-        /* Tablet & Mobile Adjustments */
+        /* Modal Custom Styling (لإخفاء جوجل قدر الإمكان) */
+        .modal-full {
+            max-width: 100%;
+            margin: 0;
+            height: 100%;
+        }
+        .modal-content {
+            height: 100vh;
+            border: none;
+            border-radius: 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         @media (max-width: 768px) {
             .main-cover { max-height: 180px; width: 95%; }
             .card-icon { width: 65px; height: 65px; }
             .card-title { font-size: 1rem; }
             .navbar { padding: 10px 15px; }
             .chat-btn { bottom: 20px; right: 20px; padding: 8px 15px; }
-            .chat-text { display: none; } /* Hide text on mobile for cleaner look */
+            .chat-text { display: none; }
         }
     </style>
 </head>
@@ -149,7 +163,7 @@
         <div id="clock" class="live-clock" style="font-size: 1rem; color: var(--primary-blue);"></div>
     </div>
 
-    <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbyTfw6iYwwGDhob_FSj3m0z63bDuryE3305UywRSFBHGcvERfHt7rTqwIhzyMjoEIkh/exec?page=user')" class="notification-container">
+    <div onclick="openInApp('https://script.google.com/macros/s/AKfycbxGF_-V8PU6BIYyBZIq8Ysi8FqnvSToEAgVqrL5z2EjOMQi8tH06i5fCCn0kh5hPsTo/exec?page=user')" class="notification-container">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBei2zFVJEcFsQfBM7soZQ0qyxaz8CS6Jg7w&s" class="notif-icon">
         <span class="badge-notif">3</span>
     </div>
@@ -162,21 +176,21 @@
 <div class="container my-5">
     <div class="row g-4 justify-content-center">
         <div class="col-6 col-md-4 col-lg-3">
-            <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbzuoX7cEMNZKzDBEW8-kRVVisw7T-CXJ4XOhox8lTkJhDNFEy0R57nBU-3GQ-2OIomc/exec')" class="service-card animate__animated animate__fadeInUp">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbzuoX7cEMNZKzDBEW8-kRVVisw7T-CXJ4XOhox8lTkJhDNFEy0R57nBU-3GQ-2OIomc/exec')" class="service-card animate__animated animate__fadeInUp">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3q_UbUQ1Iz9GCz6HFri1OwtZRB32_siIp4w&s" class="card-icon">
                 <div class="card-title">Edrak Database</div>
             </div>
         </div>
 
         <div class="col-6 col-md-4 col-lg-3">
-            <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbz3jWdO1cg-zT0ck6WofvDK36vecZRAOua9fOWVIMI5bjIw-cFqFxZ-0pG0FgoMNUUJ/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbz3jWdO1cg-zT0ck6WofvDK36vecZRAOua9fOWVIMI5bjIw-cFqFxZ-0pG0FgoMNUUJ/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
                 <img src="https://pbs.twimg.com/media/ChYtizZWMAEyr_q.png" class="card-icon">
                 <div class="card-title">Payroll Report</div>
             </div>
         </div>
 
         <div class="col-6 col-md-4 col-lg-3">
-            <div onclick="safeOpen('https://script.google.com/macros/s/AKfycbweZJzf-ROZKAkb1SJWh_nYxnReDUcUn-Xls4Y2m0fRQhgwmMG25wFpTTf66uLkLN4/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbweZJzf-ROZKAkb1SJWh_nYxnReDUcUn-Xls4Y2m0fRQhgwmMG25wFpTTf66uLkLN4/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/0649b814742483.56288537c340d.jpg" class="card-icon">
                 <div class="card-title">Vacation & Excuse</div>
             </div>
@@ -184,33 +198,39 @@
     </div>
 </div>
 
+<div class="modal fade" id="appModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Edrak System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <iframe src="" id="appIframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 <img src="https://www.wipo.int/dpp-files/54294/54294.jpg" class="bottom-img" alt="WIPO Logo">
 
-<div onclick="safeOpen('https://script.google.com/macros/s/AKfycbwlxTldi-h9GyNuQY1d2ev45XxTniaJgq_7aM9CuAP3g_qtUMlhppq98E44tpZOGMU/exec')" class="chat-btn animate__animated animate__bounceIn">
+<div onclick="openInApp('https://script.google.com/macros/s/AKfycbwlxTldi-h9GyNuQY1d2ev45XxTniaJgq_7aM9CuAP3g_qtUMlhppq98E44tpZOGMU/exec')" class="chat-btn animate__animated animate__bounceIn">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhMvLh01O3mcG23jswZT0f_Je_oNUyWZoYA&s" class="chat-icon">
     <span class="chat-text">Chat with Us</span>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    /**
-     * وظيفة فتح الروابط بشكل آمن لحل مشكلة Google Script
-     * تضيف التوجيه للمستخدم الافتراضي لفتح الصفحة بنجاح
-     */
-    function safeOpen(url) {
-        // إضافة معلمة authuser=0 لضمان التعرف على حساب جوجل
+    // وظيفة لفتح الرابط داخل Modal بدلاً من الخروج من الموقع
+    function openInApp(url) {
         const separator = url.includes('?') ? '&' : '?';
         const finalUrl = url + separator + 'authuser=0';
         
-        // محاولة الفتح في نافذة جديدة تماماً (تفتح المتصفح الافتراضي للموبايل)
-        const win = window.open(finalUrl, '_blank', 'noopener,noreferrer');
-        
-        // إذا فشل الفتح التلقائي (بسبب حظر النوافذ المنبثقة)
-        if (!win || win.closed || typeof win.closed == 'undefined') {
-            window.location.href = finalUrl;
-        }
+        const modal = new bootstrap.Modal(document.getElementById('appModal'));
+        document.getElementById('appIframe').src = finalUrl;
+        modal.show();
     }
 
-    // تحديث الوقت والتاريخ بشكل مستمر
     function updateTime() {
         const now = new Date();
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -220,7 +240,6 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // تسجيل Service Worker للعمل كـ PWA
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js');
