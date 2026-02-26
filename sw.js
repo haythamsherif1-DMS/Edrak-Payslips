@@ -1,7 +1,20 @@
-const CACHE_NAME = 'edrak-cache-v1.2'; // تغيير الرقم هنا يمسح الكاش القديم فوراً
+const CACHE_NAME = 'edrak-cache-v1.2';
+// قائمة الملفات والصور اللي عاوزينها تتحمل وتتحفظ
+const urlsToCache = [
+  './index.html?v=1.2',
+  './manifest.json?v=1.2',
+  './script.js?v=1.2',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+];
 
 self.addEventListener('install', (event) => {
-    self.skipWaiting(); // إجبار المتصفح على تفعيل النسخة الجديدة فوراً
+    self.skipWaiting();
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(urlsToCache);
+        })
+    );
 });
 
 self.addEventListener('activate', (event) => {
@@ -10,8 +23,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(
                 cacheNames.map((cache) => {
                     if (cache !== CACHE_NAME) {
-                        console.log('Deleting old cache:', cache);
-                        return caches.delete(cache); // حذف أي كاش قديم
+                        return caches.delete(cache);
                     }
                 })
             );
@@ -19,6 +31,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+// استراتيجية جلب البيانات: يحاول يجيب من النت الأول عشان التحديثات، ولو مفيش نت يجيب من الكاش
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request).catch(() => caches.match(event.request))
