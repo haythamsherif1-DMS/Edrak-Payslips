@@ -239,15 +239,22 @@
         modal.show();
     }
 
-    function updateTime() {
-        const now = new Date();
-        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('date').innerText = now.toLocaleDateString('ar-EG', dateOptions);
-        document.getElementById('clock').innerText = now.toLocaleTimeString('ar-EG');
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
+  // تحديث الوقت والتاريخ بشكل مستمر
+function updateTime() {
+    const now = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const clockElement = document.getElementById('clock');
+    const dateElement = document.getElementById('date');
+    
+    if (dateElement) dateElement.innerText = now.toLocaleDateString('ar-EG', dateOptions);
+    if (clockElement) clockElement.innerText = now.toLocaleTimeString('ar-EG');
+}
 
+// تشغيل التحديث كل ثانية
+setInterval(updateTime, 1000);
+updateTime();
+
+console.log("Script Loaded - Version 1.2");
     // تحديث السيرفس وركر لضمان جلب أحدث نسخة من GitHub
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
