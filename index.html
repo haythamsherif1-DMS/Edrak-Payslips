@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edrak Professional Portal</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004a99">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root { --primary-blue: #004a99; --soft-bg: #f8f9fa; }
+        body { background-color: var(--soft-bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        .navbar { background: white; box-shadow: 0 2px 15px rgba(0,0,0,0.1); padding: 10px 5%; position: sticky; top: 0; z-index: 1000; }
+        .logo-top { height: 45px; width: auto; }
+        .notification-container { position: relative; cursor: pointer; }
+        .notif-icon { width: 32px; height: auto; transition: 0.3s; }
+        .badge-notif { position: absolute; top: -5px; right: -5px; background: #ff0000; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; border: 2px solid white; }
+        .cover-wrapper { width: 100%; background: #fff; padding: 20px 0; text-align: center; }
+        .main-cover { width: 90%; max-width: 1000px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); height: auto; max-height: 350px; object-fit: cover; }
+        .service-card { background: white; border-radius: 20px; padding: 30px 20px; text-align: center; transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--primary-blue); }
+        .card-icon { width: 80px; height: 80px; object-fit: contain; border-radius: 12px; margin-bottom: 20px; }
+        .card-title { color: #333; font-weight: bold; font-size: 1.15rem; margin: 0; }
+        .live-clock { color: #555; font-size: 0.85rem; font-weight: 500; }
+        .chat-btn { position: fixed; bottom: 25px; right: 25px; background: white; border-radius: 50px; padding: 10px 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; z-index: 999; cursor: pointer; border: 1px solid #eee; text-decoration: none !important; transition: 0.3s; }
+        .chat-icon { width: 25px; height: 25px; }
+        .chat-text { font-weight: bold; color: #333; font-size: 0.9rem; }
+        .bottom-img { max-width: 120px; margin: 40px auto; display: block; opacity: 0.7; }
+        .modal-full { max-width: 100%; margin: 0; height: 100%; }
+        .modal-content { height: 100vh; border: none; border-radius: 0; }
+        iframe { width: 100%; height: 100%; border: none; }
+        @media (max-width: 768px) { .main-cover { max-height: 180px; width: 95%; } .chat-text { display: none; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar d-flex justify-content-between align-items-center">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_bxPxMDdkYISQbRLcmYnEpiKs0-44MqXMyg&s" class="logo-top" alt="Logo">
+    <div class="text-center d-none d-md-block">
+        <div id="date" class="live-clock"></div>
+        <div id="clock" class="live-clock" style="font-size: 1rem; color: var(--primary-blue);"></div>
+    </div>
+    <div onclick="openInApp('https://script.google.com/macros/s/AKfycbxGF_-V8PU6BIYyBZIq8Ysi8FqnvSToEAgVqrL5z2EjOMQi8tH06i5fCCn0kh5hPsTo/exec?page=user')" class="notification-container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBei2zFVJEcFsQfBM7soZQ0qyxaz8CS6Jg7w&s" class="notif-icon">
+        <span class="badge-notif">3</span>
+    </div>
+</nav>
+
+<div class="cover-wrapper animate__animated animate__fadeIn">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Dmg13F1SFOoWqVK03-4MIAdHwr9pKlPKIg&s" class="main-cover" alt="Cover Image">
+</div>
+
+<div class="container my-5">
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-3">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbzuoX7cEMNZKzDBEW8-kRVVisw7T-CXJ4XOhox8lTkJhDNFEy0R57nBU-3GQ-2OIomc/exec')" class="service-card animate__animated animate__fadeInUp">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3q_UbUQ1Iz9GCz6HFri1OwtZRB32_siIp4w&s" class="card-icon">
+                <div class="card-title">Edrak Database</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbz3jWdO1cg-zT0ck6WofvDK36vecZRAOua9fOWVIMI5bjIw-cFqFxZ-0pG0FgoMNUUJ/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <img src="https://pbs.twimg.com/media/ChYtizZWMAEyr_q.png" class="card-icon">
+                <div class="card-title">Payroll Report</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbzDqqrb5-dNIlEfAU7uZeZ2-aXbR9E15z2MK3K2S7woytuOsu2WCUpHpaJ9GJdFWZ0/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/0649b814742483.56288537c340d.jpg" class="card-icon">
+                <div class="card-title">Vacation & Excuse</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="appModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Edrak System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <iframe src="" id="appIframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="https://www.wipo.int/dpp-files/54294/54294.jpg" class="bottom-img">
+
+<div onclick="openInApp('https://script.google.com/macros/s/AKfycbwlxTldi-h9GyNuQY1d2ev45XxTniaJgq_7aM9CuAP3g_qtUMlhppq98E44tpZOGMU/exec')" class="chat-btn animate__animated animate__bounceIn">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhMvLh01O3mcG23jswZT0f_Je_oNUyWZoYA&s" class="chat-icon">
+    <span class="chat-text">Chat with Us</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function openInApp(url) {
+        // 1. توليد بصمة زمنية فريدة لمنع الكاش
+        const timestamp = new Date().getTime();
+        const separator = url.includes('?') ? '&' : '?';
+        
+        // 2. بناء الرابط النهائي مع متغير منع الكاش
+        // تم إضافة authuser=0 لضمان فتح الحساب الافتراضي وتجنب مشاكل تسجيل الدخول
+        const finalUrl = `${url}${separator}nocache=${timestamp}&authuser=0`;
+        
+        console.log("Opening URL:", finalUrl); // للتأكد في الـ Console
+
+        const modalElement = document.getElementById('appModal');
+        const iframe = document.getElementById('appIframe');
+        
+        // مسح محتوى الـ iframe القديم قبل التحميل الجديد لضمان عدم رؤية بيانات قديمة
+        iframe.src = "about:blank"; 
+        
+        setTimeout(() => {
+            iframe.src = finalUrl;
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }, 100);
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('date').innerText = now.toLocaleDateString('ar-EG', dateOptions);
+        document.getElementById('clock').innerText = now.toLocaleTimeString('ar-EG');
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // نصيحة: إذا كنت تواجه مشكلة مستمرة، يفضل تعطيل الـ Service Worker أثناء التطوير
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                // registration.unregister(); // فك تفعيل السطر ده لو الكاش لسه معلق
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
