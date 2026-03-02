@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <link rel="manifest" href="manifest.json?v=1.2">
+    <link rel="manifest" href="manifest.json?v=1.3">
     <meta name="theme-color" content="#004a99">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -175,14 +175,14 @@
 <div class="container my-5">
     <div class="row g-4 justify-content-center">
         <div class="col-6 col-md-4 col-lg-3">
-            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbzuoX7cEMNZKzDBEW8-kRVVisw7T-CXJ4XOhox8lTkJhDNFEy0R57nBU-3GQ-2OIomc/exec')" class="service-card animate__animated animate__fadeInUp">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbztP1ilB78dgkDAv3RE0_TOr_ShvXff23c2PKljm7-O5z1ORVlndU2i8UmpekovIKbK/exec')" class="service-card animate__animated animate__fadeInUp">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3q_UbUQ1Iz9GCz6HFri1OwtZRB32_siIp4w&s" class="card-icon">
                 <div class="card-title">Edrak Database</div>
             </div>
         </div>
 
         <div class="col-6 col-md-4 col-lg-3">
-            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbz3jWdO1cg-zT0ck6WofvDK36vecZRAOua9fOWVIMI5bjIw-cFqFxZ-0pG0FgoMNUUJ/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <div onclick="openInApp('https://script.google.com/macros/s/AKfycbyamFoOoj0GAZ--yHlYNvdxCtS59s8FFPfftvb4N0m4qARNMChMLKgDN7fs9jyjGtsC/exec')" class="service-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
                 <img src="https://pbs.twimg.com/media/ChYtizZWMAEyr_q.png" class="card-icon">
                 <div class="card-title">Payroll Report</div>
             </div>
@@ -220,7 +220,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="script.js?v=1.2"></script>
+<script src="script.js?v=1.3"></script>
 
 <script>
     function openInApp(url) {
@@ -254,11 +254,11 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-console.log("Script Loaded - Version 1.2");
+console.log("Script Loaded - Version 1.3");
     // تحديث السيرفس وركر لضمان جلب أحدث نسخة من GitHub
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=1.2').then(reg => {
+            navigator.serviceWorker.register('./sw.js?v=1.3').then(reg => {
                 reg.update(); // إجبار التحديث
             }).catch(err => console.log('SW error:', err));
         });
