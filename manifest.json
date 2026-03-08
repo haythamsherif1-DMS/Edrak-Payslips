@@ -2,7 +2,7 @@
   "name": "Edrak Professional Portal",
   "short_name": "Edrak HR",
   "version": "1.4",
-  "start_url": "index.html?v=1.3",
+  "start_url": "index.html?v=1.4",
   "display": "standalone",
   "background_color": "#004a99",
   "theme_color": "#004a99",
@@ -19,6 +19,7 @@
     }
   ]
 }
+
 
 
 
