@@ -12,8 +12,7 @@
     <style>
         :root {
             --primary-blue: #004a99;
-            --accent-blue: #00d2ff;
-            --soft-bg: #f8f9fa;
+            --soft-bg: #f0f2f5;
         }
 
         body {
@@ -22,7 +21,6 @@
             margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* Navbar */
         .navbar {
             background: white;
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
@@ -40,16 +38,34 @@
         }
         .nav-link-sidebar:hover { background: #f0f7ff; color: var(--primary-blue); }
 
-        /* Hero Section */
+        /* Hero Section - تصميم 3D مميز */
         .hero-container {
             height: calc(100vh - 80px);
             display: flex; align-items: center; justify-content: center;
-            padding: 20px; background: white;
+            perspective: 1000px; /* لإعطاء عمق 3D */
+            background: #ffffff;
+            padding: 20px;
         }
+        
+        .image-wrapper {
+            width: 100%;
+            max-width: 900px;
+            transform: rotateX(5deg) rotateY(-5deg); /* ميلان بسيط لإيحاء 3D */
+            transition: all 0.5s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02); /* العودة للأصل عند التمرير */
+        }
+
         .main-hero-img {
-            width: 100%; max-width: 1000px; height: 75vh;
-            object-fit: cover; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            width: 100%;
+            height: auto;
+            border-radius: 30px;
+            /* ظل عميق يعطي إيحاء بأن الصورة طافية 3D */
+            box-shadow: 30px 30px 60px rgba(0,0,0,0.2), 
+                        -10px -10px 30px rgba(255,255,255,0.5);
+            border: 8px solid white;
         }
 
         /* Modal & Back Button */
@@ -65,10 +81,10 @@
         .btn-back-style {
             background: var(--primary-blue); color: white; border: none;
             padding: 8px 25px; border-radius: 50px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
         }
 
-        /* --- الأنيميشن المطور (The New Professional Loader) --- */
+        /* Loader Animation */
         #globalLoader {
             position: absolute;
             top: 65px; left: 0; right: 0; bottom: 0;
@@ -77,59 +93,23 @@
             align-items: center; justify-content: center;
             z-index: 1200;
         }
-
-        .loader-visual {
-            width: 80px; height: 80px;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        /* دوائر النبض */
+        .loader-visual { width: 80px; height: 80px; position: relative; margin-bottom: 20px; }
         .pulse-ring {
-            position: absolute;
-            width: 100%; height: 100%;
-            border: 4px solid var(--primary-blue);
-            border-radius: 50%;
-            animation: pulse-animation 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            position: absolute; width: 100%; height: 100%;
+            border: 4px solid var(--primary-blue); border-radius: 50%;
+            animation: pulse-animation 1.5s infinite;
         }
-
-        .pulse-ring:nth-child(2) { animation-delay: 0.3s; }
-
         @keyframes pulse-animation {
             0% { transform: scale(0.1); opacity: 1; }
-            80%, 100% { transform: scale(1.2); opacity: 0; }
+            100% { transform: scale(1.2); opacity: 0; }
         }
-
         .loader-icon {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--primary-blue);
-            font-size: 2rem;
-            animation: bounceIn 1s infinite alternate;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: var(--primary-blue); font-size: 2rem; animation: bounceIn 1s infinite alternate;
         }
-
-        #loadingTxt {
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #004a99, #00d2ff, #004a99);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 2s linear infinite;
-        }
-
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-        /* --- نهاية الأنيميشن --- */
 
         iframe { width: 100%; height: calc(100vh - 65px); border: none; display: block; }
-        
-        .lang-toggle {
-            cursor: pointer; padding: 6px 18px; border: 2px solid var(--primary-blue);
-            border-radius: 25px; color: var(--primary-blue); font-weight: bold;
-        }
+        .lang-toggle { cursor: pointer; padding: 6px 18px; border: 2px solid var(--primary-blue); border-radius: 25px; color: var(--primary-blue); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -168,8 +148,10 @@
     </div>
 </div>
 
-<div class="hero-container animate__animated animate__fadeIn">
-    <img src="https://wuzzuf.net/jobs/careers/KidZania-Cairo-Egypt-9255" class="main-hero-img" alt="Cover">
+<div class="hero-container">
+    <div class="image-wrapper animate__animated animate__zoomIn">
+        <img src="https://d1eilicilqktnj.cloudfront.net/highlighted_contents/primary_images/449/default/400X205-Size-03.jpeg?1588280340" class="main-hero-img" alt="KidZania Cairo">
+    </div>
 </div>
 
 <div class="modal fade" id="appModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
@@ -181,17 +163,14 @@
                     <span id="backTxt">رجوع</span> <i class="fas fa-chevron-left" id="backIcon"></i>
                 </button>
             </div>
-            
             <div class="modal-body p-0 position-relative">
                 <div id="globalLoader">
                     <div class="loader-visual">
                         <div class="pulse-ring"></div>
-                        <div class="pulse-ring"></div>
                         <i class="fas fa-sync-alt loader-icon"></i>
                     </div>
-                    <h5 class="fw-bold" id="loadingTxt">جاري تحميل الصفحة...</h5>
+                    <h5 id="loadingTxt" class="text-primary fw-bold">جاري تحميل الصفحة...</h5>
                 </div>
-                
                 <iframe src="" id="appIframe"></iframe>
             </div>
         </div>
@@ -199,7 +178,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     let currentLang = 'ar';
     const modal = new bootstrap.Modal(document.getElementById('appModal'));
@@ -208,11 +186,8 @@
 
     function openInApp(url, title) {
         document.getElementById('modalTitleDisplay').innerText = title;
-        
-        // تأكيد إظهار اللودر في كل ضغطة
         loader.style.display = 'flex';
-        iframe.style.visibility = 'hidden'; // إخفاء الفريم حتى يكتمل التحميل
-        
+        iframe.style.visibility = 'hidden';
         iframe.src = "about:blank";
         
         const cacheBuster = "t=" + new Date().getTime();
@@ -224,13 +199,12 @@
         if(offcanvas) offcanvas.hide();
     }
 
-    // إخفاء اللودر فور استجابة الصفحة
     iframe.onload = function() {
         if (iframe.src !== "about:blank") {
             setTimeout(() => {
                 loader.style.display = 'none';
                 iframe.style.visibility = 'visible';
-            }, 600); // تأخير بسيط لضمان سلاسة الانتقال
+            }, 800);
         }
     };
 
@@ -264,6 +238,5 @@
         document.getElementById('backIcon').className = l === 'ar' ? 'fas fa-chevron-left' : 'fas fa-chevron-right';
     }
 </script>
-
 </body>
 </html>
