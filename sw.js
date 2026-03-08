@@ -1,9 +1,9 @@
-const CACHE_NAME = 'edrak-cache-v1.7';
+const CACHE_NAME = 'edrak-cache-v1.8';
 // قائمة الملفات والصور اللي عاوزينها تتحمل وتتحفظ
 const urlsToCache = [
-  './index.html?v=1.7',
-  './manifest.json?v=1.7',
-  './script.js?v=1.7',
+  './index.html?v=1.8',
+  './manifest.json?v=1.8',
+  './script.js?v=1.8',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
 ];
@@ -37,6 +37,7 @@ self.addEventListener('fetch', (event) => {
         fetch(event.request).catch(() => caches.match(event.request))
     );
 });
+
 
 
 
